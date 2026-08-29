@@ -1,0 +1,41 @@
+import { createServerClient } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+
+const PUBLIC_ROUTES = ['/login', '/activate', '/access-denied']
+
+export async function updateSession(request: NextRequest) {
+  let response = NextResponse.next({ request })
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+
+  if (!url || !key) return response
+
+  const supabase = createServerClient(url, key, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll()
+      },
+      setAll(cookiesToSet, headers) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        response = NextResponse.next({ request })
+        cookiesToSet.forEach(({ name, value, options }) =>
+          response.cookies.set(name, value, options),
+        )
+        Object.entries(headers).forEach(([name, value]) => response.headers.set(name, value))
+      },
+    },
+  })
+
+  const { data } = await supabase.auth.getClaims()
+  const path = request.nextUrl.pathname
+  const publicRoute = PUBLIC_ROUTES.some((route) => path.startsWith(route)) || path.startsWith('/auth/')
+
+  if (!data?.claims && !publicRoute) {
+    const redirect = request.nextUrl.clone()
+    redirect.pathname = '/login'
+    redirect.search = ''
+    return NextResponse.redirect(redirect)
+  }
+
+  return response
+}
