@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+  <body style="margin:0;padding:0;background:#f3f2ed;color:#17351f;font-family:Arial,Helvetica,sans-serif;">
+    <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background:#f3f2ed;padding:32px 16px;">
+      <tr>
+        <td align="center">
+          <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="max-width:620px;background:#ffffff;border:1px solid #d9ded8;">
+            <tr>
+              <td style="padding:14px 24px;background:#355b34;color:#ffffff;font-size:12px;letter-spacing:1.6px;font-weight:700;">
+                CBTA 241 / CENTRO DE OPERACIONES
+              </td>
+            </tr>
+            <tr>
+              <td style="padding:32px 24px;">
+                <p style="margin:0 0 8px;color:#8b6700;font-size:12px;font-weight:700;letter-spacing:1.2px;">ACTIVACIÓN ADMINISTRATIVA</p>
+                <h1 style="margin:0 0 18px;font-size:28px;line-height:1.2;color:#17351f;">Confirma el buzón autorizado.</h1>
+                <p style="margin:0 0 20px;font-size:16px;line-height:1.6;color:#314638;">
+                  Se solicitó la activación de la cuenta administrativa inicial del Portal Institucional CBTA 241. La contraseña todavía no ha sido creada.
+                </p>
+                <p style="margin:0 0 26px;font-size:16px;line-height:1.6;color:#314638;">
+                  Usa el botón siguiente para demostrar control de este correo. El enlace es de uso temporal y conduce al intercambio seguro del token antes de permitir definir credenciales y MFA.
+                </p>
+                <p style="margin:0 0 28px;">
+                  <a href="{{ .RedirectTo }}?token_hash={{ .TokenHash }}&type=invite" style="display:inline-block;background:#efb708;color:#17351f;text-decoration:none;font-weight:700;padding:14px 20px;border-radius:2px;">
+                    Confirmar identidad administrativa
+                  </a>
+                </p>
+                <p style="margin:0;font-size:13px;line-height:1.6;color:#657168;">
+                  Si no esperabas esta invitación, ignora este mensaje. No compartas este enlace ni códigos de autenticación con terceros.
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

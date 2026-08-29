@@ -1,0 +1,11 @@
+# Supabase local/deployment configuration tracked with the portal source.
+# The initial SUPERADMIN bootstrap has already been consumed. The invite function
+# remains deployed only as historical/bootstrap infrastructure and now requires a
+# valid JWT at the gateway, removing unnecessary anonymous access post-bootstrap.
+
+[functions.bootstrap-superadmin-invite]
+verify_jwt = true
+
+[auth.email.template.invite]
+subject = "Activa el Centro de Operaciones CBTA 241"
+content_path = "./supabase/templates/invite.html"

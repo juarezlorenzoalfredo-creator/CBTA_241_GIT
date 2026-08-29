@@ -1,0 +1,15 @@
+{
+  "name": "cbta241-portal",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev:admin": "npm run dev --workspace @cbta241/admin",
+    "dev:web": "npm run dev --workspace @cbta241/web",
+    "build": "npm run build --workspace @cbta241/web && npm run build --workspace @cbta241/admin",
+    "typecheck": "npm run typecheck --workspace @cbta241/web && npm run typecheck --workspace @cbta241/admin"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}
