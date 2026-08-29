@@ -1,10 +1,10 @@
 # Supabase local/deployment configuration tracked with the portal source.
-# The bootstrap invite is intentionally unauthenticated at the gateway because
-# there is no user yet. Its implementation is constrained to one fixed,
-# owner-approved recipient and fails closed until an HTTPS confirmation URL exists.
+# The initial SUPERADMIN bootstrap has already been consumed. The invite function
+# remains deployed only as historical/bootstrap infrastructure and now requires a
+# valid JWT at the gateway, removing unnecessary anonymous access post-bootstrap.
 
 [functions.bootstrap-superadmin-invite]
-verify_jwt = false
+verify_jwt = true
 
 [auth.email.template.invite]
 subject = "Activa el Centro de Operaciones CBTA 241"
