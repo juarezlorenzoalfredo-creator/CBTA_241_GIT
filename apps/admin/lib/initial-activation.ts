@@ -18,9 +18,12 @@ export async function getInitialActivationContext(): Promise<AdminContext | null
   const claims = authClaimsSchema.safeParse(claimsData?.claims)
   if (!claims.success) return null
 
-  // Supabase orders AMR entries newest first. Only the session created from the
-  // invitation may enter the one-time credential bootstrap flow.
-  if (claims.data.amr[0]?.method !== 'invite') return null
+  // Supabase Auth represents a successfully verified email invitation as an OTP
+  // authentication method in the resulting session (login_method=otp / amr=otp).
+  // The /auth/confirm route itself is deliberately restricted to type=invite, and
+  // this second gate also requires the authenticated identity to be the active
+  // bootstrapped SUPERADMIN before credential creation is allowed.
+  if (claims.data.amr[0]?.method !== 'otp') return null
 
   const { data, error } = await supabase.rpc('get_my_admin_context')
   if (error) return null
